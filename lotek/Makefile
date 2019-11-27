@@ -33,10 +33,11 @@ PLUGIN_CODE_OBJECTS = SNRZFindPulse.o SlidingSpectrum.o FindPulseFD.o FindPulseF
 VAMP_SDK_INCLUDE_DIR = /usr/include/
 VAMP_SDK_LIB_DIR = /usr/lib/x86_64-linux-gnu
 
-CXXFLAGS_PRODUCTION = -std=c++0x -I$(VAMP_SDK_INCLUDE_DIR) -Wall -fPIC -O3 -ffast-math  -ftree-vectorize
-CXXFLAGS_DEBUG = -std=c++0x -I$(VAMP_SDK_INCLUDE_DIR) -Wall -fPIC -g3
+CXXFLAGS_PRODUCTION = -std=c++11 -I$(VAMP_SDK_INCLUDE_DIR) -Wall -fPIC -O3 -ffast-math  -ftree-vectorize
+CXXFLAGS_DEBUG = -std=c++11 -I$(VAMP_SDK_INCLUDE_DIR) -Wall -fPIC -g3
 
 ##CXXFLAGS = $(CXXFLAGS_DEBUG)
+CXX = g++
 CXXFLAGS = $(CXXFLAGS_PRODUCTION)
 PLUGIN_EXT = .so
 PLUGIN = $(PLUGIN_LIBRARY_NAME)$(PLUGIN_EXT)
@@ -82,46 +83,47 @@ testFreqEstimator: testFreqEstimator.o FreqEstimator.o
 	$(CXX) -o $@ $^ -L/usr/local/lib -lfftw3f
 
 testKahanSum: KahanSum.h testKahanSum.cpp
-	g++ -$(CXXFLAGS) -o testKahanSum testKahanSum.cpp
+	$(CXX) -$(CXXFLAGS) -o testKahanSum testKahanSum.cpp
 
 testPeakFinder: PeakFinder.h testPeakFinder.cpp RingBuffWithMax.h
-	g++ $(CXXFLAGS) -o testPeakFinder testPeakFinder.cpp
+	$(CXX) $(CXXFLAGS) -o testPeakFinder testPeakFinder.cpp
 
 testDynamicQuantile: DynamicQuantile.h testDynamicQuantile.cpp
-	g++ $(CXXFLAGS) -o testDynamicQuantile testDynamicQuantile.cpp
+	$(CXX) $(CXXFLAGS) -o testDynamicQuantile testDynamicQuantile.cpp
 
 testEdgeDetector: EdgeDetector.h testEdgeDetector.cpp
-	g++ $(CXXFLAGS) -o testEdgeDetector testEdgeDetector.cpp
+	$(CXX) $(CXXFLAGS) -o testEdgeDetector testEdgeDetector.cpp
 
 testVariablePulseDetector: VariablePulseDetector.h testVariablePulseDetector.cpp
-	g++ $(CXXFLAGS) -o testVariablePulseDetector testVariablePulseDetector.cpp
+	$(CXX) $(CXXFLAGS) -o testVariablePulseDetector testVariablePulseDetector.cpp
 
 testFixedPulseDetector: FixedPulseDetector.h testFixedPulseDetector.cpp
-	g++ $(CXXFLAGS) -o testFixedPulseDetector testFixedPulseDetector.cpp
+	$(CXX) $(CXXFLAGS) -o testFixedPulseDetector testFixedPulseDetector.cpp
 
 testAccordion: Accordion.h testAccordion.cpp
-	g++ $(CXXFLAGS) -o testAccordion testAccordion.cpp
+	$(CXX) $(CXXFLAGS) -o testAccordion testAccordion.cpp
 
 testKahanMovingAverager: KahanMovingAverager.h testKahanMovingAverager.cpp
-	g++ $(CXXFLAGS) -o testKahanMovingAverager testKahanMovingAverager.cpp
+	$(CXX) $(CXXFLAGS) -o testKahanMovingAverager testKahanMovingAverager.cpp
 
 testMovingSum: MovingSum.h testMovingSum.cpp
-	g++ $(CXXFLAGS) -o testMovingSum testMovingSum.cpp
+	$(CXX) $(CXXFLAGS) -o testMovingSum testMovingSum.cpp
 
 testSlidingSpectrum: SlidingSpectrum.h testSlidingSpectrum.o SlidingSpectrum.o
-	g++ $(CXXFLAGS) -o testSlidingSpectrum SlidingSpectrum.o testSlidingSpectrum.cpp -lfftw3f
+	$(CXX) $(CXXFLAGS) -o testSlidingSpectrum SlidingSpectrum.o testSlidingSpectrum.cpp -lfftw3f
 
 testNarrowBandSlidingSpectrum: NarrowBandSlidingSpectrum.h testNarrowBandSlidingSpectrum.o
-	g++ $(CXXFLAGS) -o testNarrowBandSlidingSpectrum testNarrowBandSlidingSpectrum.cpp
+	$(CXX) $(CXXFLAGS) -o testNarrowBandSlidingSpectrum testNarrowBandSlidingSpectrum.cpp
 
 testSpectralPulseFinder: SpectralPulseFinder.h testSpectralPulseFinder.cpp SlidingSpectrum.o
-	g++ $(CXXFLAGS) -o testSpectralPulseFinder testSpectralPulseFinder.cpp SlidingSpectrum.o -lfftw3f
+	$(CXX) $(CXXFLAGS) -o testSpectralPulseFinder testSpectralPulseFinder.cpp SlidingSpectrum.o -lfftw3f
 
 testNarrowBandSpectralPulseFinder: NarrowBandSpectralPulseFinder.h testNarrowBandSpectralPulseFinder.cpp NarrowBandSlidingSpectrum.h
-	g++ $(CXXFLAGS) -o testNarrowBandSpectralPulseFinder testNarrowBandSpectralPulseFinder.cpp
+	$(CXX) $(CXXFLAGS) -o testNarrowBandSpectralPulseFinder testNarrowBandSpectralPulseFinder.cpp
 
 clean:
 	rm -f *.o                               \
+  rm -f *.so                            \
 	testAccordion				\
 	testDynamicQuantile			\
 	testEdgeDetector			\
