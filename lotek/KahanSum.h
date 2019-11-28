@@ -12,6 +12,8 @@
 
 */
 
+#include <cmath>
+
 #ifndef _KAHAN_SUM_H
 #define _KAHAN_SUM_H
 
