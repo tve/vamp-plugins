@@ -33,7 +33,7 @@ PLUGIN_CODE_OBJECTS = SNRZFindPulse.o SlidingSpectrum.o FindPulseFD.o FindPulseF
 VAMP_SDK_INCLUDE_DIR = /usr/include/
 VAMP_SDK_LIB_DIR = /usr/lib/x86_64-linux-gnu
 
-CXXFLAGS_PRODUCTION = -std=c++11 -Wall -fPIC -O3 -ffast-math  -ftree-vectorize -Wno-psabi
+CXXFLAGS_PRODUCTION = -std=c++11 -Wall -fPIC -O3 -ffast-math  -ftree-vectorize -Wno-psabi -Wno-class-memaccess
 CXXFLAGS_DEBUG = -std=c++11 -Wall -fPIC -g3
 
 ##CXXFLAGS = $(CXXFLAGS_DEBUG)
