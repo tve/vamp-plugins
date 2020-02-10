@@ -33,15 +33,15 @@ PLUGIN_CODE_OBJECTS = SNRZFindPulse.o SlidingSpectrum.o FindPulseFD.o FindPulseF
 VAMP_SDK_INCLUDE_DIR = /usr/include/
 VAMP_SDK_LIB_DIR = /usr/lib/x86_64-linux-gnu
 
-CXXFLAGS_PRODUCTION = -std=c++11 -I$(VAMP_SDK_INCLUDE_DIR) -Wall -fPIC -O3 -ffast-math  -ftree-vectorize
-CXXFLAGS_DEBUG = -std=c++11 -I$(VAMP_SDK_INCLUDE_DIR) -Wall -fPIC -g3
+CXXFLAGS_PRODUCTION = -std=c++11 -Wall -fPIC -O3 -ffast-math  -ftree-vectorize
+CXXFLAGS_DEBUG = -std=c++11 -Wall -fPIC -g3
 
 ##CXXFLAGS = $(CXXFLAGS_DEBUG)
 CXX = g++
 CXXFLAGS = $(CXXFLAGS_PRODUCTION)
 PLUGIN_EXT = .so
 PLUGIN = $(PLUGIN_LIBRARY_NAME)$(PLUGIN_EXT)
-LDFLAGS = -shared -Wl,-soname=$(PLUGIN) -lvamp-sdk -L/usr/local/lib -lfftw3f -Wl,--version-script=vamp-plugin.map
+LDFLAGS = -shared -Wl,-soname=$(PLUGIN) -lvamp-sdk -lfftw3f -Wl,--version-script=vamp-plugin.map
 
 
 $(PLUGIN): $(PLUGIN_CODE_OBJECTS) lotek-plugins.o
