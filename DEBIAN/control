@@ -1,0 +1,8 @@
+Package: vamp-plugins
+Version: 0.6
+Architecture: armhf
+Essential: no
+Depends: libboost-filesystem-dev, libboost-system-dev, libboost-thread-dev, libasound2-dev, libvamp-hostsdk3v5, libvamp-sdk2v5, libfftw3-dev
+Homepage: https://github.com/sensorgnome/vamp-plugins
+Maintainer: TvE (tvoneicken@gmail.com)
+Description: VAMP plugin for detecting VHF pulses from Lotek tags for Sensorgnome.

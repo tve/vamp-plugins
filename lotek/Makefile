@@ -21,7 +21,8 @@ PLUGIN_LIBRARY_NAME = lotek-plugins
 
 # Where the plugin library should be installed:
 
-PLUGIN_INSTALL_DIR = ~/.vamp
+DESTDIR?=/
+PLUGIN_INSTALL_DIR = $(DESTDIR)/usr/local/lib/vamp
 
 # Edit this to list one .o file for each .cpp file in your plugin project
 #
@@ -37,12 +38,13 @@ CXXFLAGS_PRODUCTION = -std=c++11 -Wall -fPIC -O3 -ffast-math  -ftree-vectorize -
 CXXFLAGS_DEBUG = -std=c++11 -Wall -fPIC -g3
 
 ##CXXFLAGS = $(CXXFLAGS_DEBUG)
-CXX = g++
+CXX ?= g++
 CXXFLAGS = $(CXXFLAGS_PRODUCTION)
 PLUGIN_EXT = .so
 PLUGIN = $(PLUGIN_LIBRARY_NAME)$(PLUGIN_EXT)
 LDFLAGS = -shared -Wl,-soname=$(PLUGIN) -lvamp-sdk -lfftw3f -Wl,--version-script=vamp-plugin.map
 
+STRIP?=strip
 
 $(PLUGIN): $(PLUGIN_CODE_OBJECTS) lotek-plugins.o
 	   $(CXX) -o $@ $^ $(LDFLAGS)
@@ -122,8 +124,8 @@ testNarrowBandSpectralPulseFinder: NarrowBandSpectralPulseFinder.h testNarrowBan
 	$(CXX) $(CXXFLAGS) -o testNarrowBandSpectralPulseFinder testNarrowBandSpectralPulseFinder.cpp
 
 clean:
-	rm -f *.o                               \
-  rm -f *.so                            \
+	rm -f *.o
+	rm -f *.so                            	\
 	testAccordion				\
 	testDynamicQuantile			\
 	testEdgeDetector			\
@@ -137,5 +139,6 @@ clean:
 
 
 install: $(PLUGIN)
-	if [ "$(CXXFLAGS)" != "$(CXXFLAGS_DEBUG)" ]; then strip $(PLUGIN); fi
-	cp -f $(PLUGIN) $(PLUGIN_INSTALL_DIR)
+	if [ "$(CXXFLAGS)" != "$(CXXFLAGS_DEBUG)" ]; then $(STRIP) $(PLUGIN); fi
+	install -d $(PLUGIN_INSTALL_DIR)
+	install -m 644 $(PLUGIN) $(PLUGIN_INSTALL_DIR)
