@@ -644,6 +644,7 @@ FindPulseFDBatch::process(const float *const *inputBuffers,
                         feature.values.push_back((bin_est * ((float) m_inputSampleRate / m_plen_in_samples)) / 1000.0);
                         feature.values.push_back(10 * log10(m_freq_bin_pulse_finder[best].pulse_signal() / m_probe_scale));
                         feature.values.push_back(10 * log10(m_freq_bin_pulse_finder[best].pulse_noise() / m_probe_scale));
+                        feature.values.push_back(10 * log10(m_freq_bin_pulse_finder[best].pulse_SNR()));
                         returnFeatures[0].push_back(feature);
                     }
                 }
